@@ -22,15 +22,23 @@ Or install it yourself as:
 ## Usage
 
 You can run the CLI to use LMT (or using directly the different classes defined in this gem).
+
 To run the CLI:
+	
 	$ bundle exec lmt
+
 To run a conversion:
+	
 	$ bundle exec lmt convert FILE_NAME {OPTIONS}
+
 To run a fonctionnal test: (file comparison)
+	
 	$ bundle exec lmt test
 
 You can check the Yard Doc by doing the following:
+	
 	$ yard server
+	
 	Then go to [http://localhost:8808](http://localhost:8808)
 
 ## License
