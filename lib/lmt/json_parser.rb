@@ -3,14 +3,21 @@ require 'json'
 module LMT
   class JSONParser
     attr_reader :objects
-  
+    
+    # Initialize an instance of JSONParser that take a json file path (as a string) in entry, able to extract field names and their value in different i_vars.
+    # Keys are converted to a specific syntax (e.g. object.key.field_value).
+    #
+    # @param [String] path The path of the JSON file we want to keep keys and objects attributes.
     def initialize(path)
       json_file = read_json_file(path)
       parsed_json = parse_json_file(json_file)
       @keys = read_json_obj_structure(parsed_json.first)
       @objects = associate_data_to_keys(parsed_json, @keys)
     end
-  
+    
+    # Converts, through our CSV convertor, the datas contained in .self instance to a CSV file while filtering them. 
+    #
+    # @param [String] output_file The (relative or absolute) path of the output file.
     def convert_to_csv(output_file)
       generator = CSVGenerator.new(@keys, @objects)
       generator.generate_csv(output_file)
