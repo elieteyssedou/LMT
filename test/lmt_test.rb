@@ -13,6 +13,7 @@ class LMTTest < Minitest::Test
     @json_datas.convert_to_csv('./test/tmp/output.csv')
     generated_file = File.read('./test/tmp/output.csv')
     comp_file = File.read('assets/users_ref.csv')
+    
     assert_equal(generated_file, comp_file)
   end
 end

@@ -3,5 +3,5 @@ require "lmt/csv_generator"
 require "lmt/cli"
 require "lmt/version"
 
-module LMT
+module LMT # LMT => LiveMentorTest
 end
