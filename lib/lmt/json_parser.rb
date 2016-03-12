@@ -33,21 +33,21 @@ module LMT
       @parsed_json ||= JSON.parse(json_file)
     end
   
-    def read_json_obj_structure(json_obj, parent = nil) # Reads object structure and keeps its field names
-      @keys ||= []
+    def read_json_obj_structure(json_obj, parent = nil, tmp_keys = []) # Reads object structure and keeps its field names
       json_obj.each do |object_key, object_value|
         if object_value.is_a?(Hash)
-          read_json_obj_structure(object_value, object_naming(object_key, parent))
+          read_json_obj_structure(object_value, object_naming(object_key, parent), tmp_keys)
         else
-          @keys << object_naming(object_key, parent)
+          tmp_keys << object_naming(object_key, parent)
         end
       end
-      @keys
+      tmp_keys
     end
   
     def associate_data_to_keys(parsed_json, keys)
       objects = []
       parsed_json.each do |json_object|
+        verify_object_structure(json_object, keys)
         object = []
         keys.each do |path|
           object << access_value_in_object_from_path(path, json_object)
@@ -56,7 +56,12 @@ module LMT
       end
       objects
     end
-  
+    
+    def verify_object_structure(json_object, keys)
+      obj_keys = read_json_obj_structure(json_object)
+      fail StructureError unless obj_keys == keys
+    end
+
     def object_naming(key, parent)
       parent ? "#{parent}.#{key}" : key.to_s
     end
