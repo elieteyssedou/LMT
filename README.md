@@ -39,7 +39,7 @@ You can check the Yard Doc by doing the following:
 	
 	$ yard server
 	
-	Then go to [http://localhost:8808](http://localhost:8808)
+>Then go to [http://localhost:8808](http://localhost:8808)
 
 ## License
 
